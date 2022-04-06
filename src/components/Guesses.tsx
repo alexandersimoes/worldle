@@ -8,6 +8,7 @@ interface GuessesProps {
   guesses: Guess[];
   settingsData: SettingsData;
   countryInputRef?: React.RefObject<HTMLInputElement>;
+  isAprilFools?: boolean;
 }
 
 export function Guesses({
@@ -15,6 +16,7 @@ export function Guesses({
   guesses,
   settingsData,
   countryInputRef,
+  isAprilFools = false,
 }: GuessesProps) {
   return (
     <div>
@@ -22,9 +24,11 @@ export function Guesses({
         {Array.from(Array(rowCount).keys()).map((index) => (
           <GuessRow
             key={index}
+            index={index}
             guess={guesses[index]}
             settingsData={settingsData}
             countryInputRef={countryInputRef}
+            isAprilFools={isAprilFools}
           />
         ))}
       </div>

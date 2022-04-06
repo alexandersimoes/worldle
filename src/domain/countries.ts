@@ -862,7 +862,6 @@ export const countries: Country[] = [
   { code: "WS", latitude: -13.759029, longitude: -172.104629, name: "Samoa" },
   { code: "XK", latitude: 42.602636, longitude: 20.902977, name: "Kosovo" },
   { code: "YE", latitude: 15.552727, longitude: 48.516388, name: "Yemen" },
-  { code: "YT", latitude: -12.8275, longitude: 45.166244, name: "Mayotte" },
   {
     code: "ZA",
     latitude: -30.559482,
@@ -871,6 +870,110 @@ export const countries: Country[] = [
   },
   { code: "ZM", latitude: -13.133897, longitude: 27.849332, name: "Zambia" },
   { code: "ZW", latitude: -19.015438, longitude: 29.154857, name: "Zimbabwe" },
+];
+
+export const fictionalCountries: Country[] = [
+  { code: "AA", latitude: 12.546245, longitude: 1.601554, name: "Atlantis" },
+  {
+    code: "AB",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Central City",
+  },
+  {
+    code: "AC",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Cerulean City",
+  },
+  {
+    code: "AD",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Deepheart Valley",
+  },
+  {
+    code: "AE",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Friendship Island",
+  },
+  { code: "AF", latitude: 12.546245, longitude: 1.601554, name: "Gallifrey" },
+  { code: "AG", latitude: 12.546245, longitude: 1.601554, name: "Gotham" },
+  {
+    code: "AH",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Green Hills",
+  },
+  {
+    code: "AI",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Hill Valley",
+  },
+  { code: "AJ", latitude: 42.546245, longitude: 1.601554, name: "Land of Oz" },
+  {
+    code: "AK",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Liberty City",
+  },
+  { code: "AL", latitude: 12.546245, longitude: 1.601554, name: "Metropolis" },
+  { code: "AM", latitude: 12.546245, longitude: 1.601554, name: "Mos Eisley" },
+  {
+    code: "AN",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Mushroom Kingdom",
+  },
+  { code: "AO", latitude: 12.546245, longitude: 1.601554, name: "Narnia" },
+  {
+    code: "AP",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Pelotillehue",
+  },
+  {
+    code: "AQ",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Phantom Island",
+  },
+  {
+    code: "AR",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Pleasantville",
+  },
+  {
+    code: "AS",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Raccoon City",
+  },
+  {
+    code: "AT",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "San Andreas",
+  },
+  { code: "AU", latitude: 12.546245, longitude: 1.601554, name: "Smallville" },
+  {
+    code: "AV",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Springfield",
+  },
+  { code: "AW", latitude: 12.546245, longitude: 1.601554, name: "The Shire" },
+  { code: "AX", latitude: 12.546245, longitude: 1.601554, name: "Twin Peaks" },
+  { code: "AY", latitude: 12.546245, longitude: 1.601554, name: "Vice City" },
+  { code: "AZ", latitude: 12.546245, longitude: 1.601554, name: "Wakanda" },
+  { code: "BA", latitude: 12.546245, longitude: 1.601554, name: "Westeros" },
+  { code: "BB", latitude: 12.546245, longitude: 1.601554, name: "Westview" },
+  { code: "BC", latitude: 12.546245, longitude: 1.601554, name: "Westworld" },
+  { code: "BD", latitude: 12.546245, longitude: 1.601554, name: "Winterfell" },
+  { code: "BE", latitude: 12.546245, longitude: 1.601554, name: "Zion" },
 ];
 
 export const countriesWithImage = countries.filter((c) =>
@@ -1144,13 +1247,19 @@ export const countryISOMapping: Iso = {
   XK: "XKX",
 };
 
-export function getCountryPrettyName(str: string | undefined): string {
+export function getCountryPrettyName(
+  str: string | undefined,
+  isAprilFools = false
+): string {
+  const items = isAprilFools ? fictionalCountries : countries;
   if (str) {
-    const country = countries.find(
+    const country = items.find(
       (c) => sanitizeCountryName(c.name.toLowerCase()) === str
     );
     if (country) {
-      return `${flag(country?.code)} ${country.name}`;
+      return isAprilFools
+        ? `${country.name}`
+        : `${flag(country?.code)} ${country.name}`;
     }
   }
   return `${str}`;
