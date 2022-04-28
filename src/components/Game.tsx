@@ -23,6 +23,8 @@ import { useTranslation } from "react-i18next";
 import { SettingsData } from "../hooks/useSettings";
 import { useMode } from "../hooks/useMode";
 import { useCountry } from "../hooks/useCountry";
+import axios from "axios";
+import { SelectDropdown } from "@mantine/core/lib/components/Select/SelectDropdown/SelectDropdown";
 
 function getDayString() {
   return DateTime.now().toFormat("yyyy-MM-dd");
@@ -51,6 +53,8 @@ export function Game({ settingsData }: GameProps) {
     };
   }
 
+  const [ipData, setIpData] = useState(null);
+  const [won, setWon] = useState(false);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [countryValue, setCountryValue] = useState<string>("");
   const [guesses, addGuess] = useGuesses(dayString);
@@ -72,6 +76,10 @@ export function Game({ settingsData }: GameProps) {
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      const getIpData = async () => {
+        const res = await axios.get("https://geolocation-db.com/json/");
+        setIpData(res.data);
+      };
       const items = isAprilFools ? fictionalCountries : countries;
       const guessedCountry = items.find(
         (country) =>
@@ -96,6 +104,8 @@ export function Game({ settingsData }: GameProps) {
       setCountryValue("");
 
       if (newGuess.distance === 0) {
+        setWon(true);
+        getIpData();
         toast.success(t("welldone"), { delay: 2000 });
       }
     },
@@ -103,6 +113,10 @@ export function Game({ settingsData }: GameProps) {
   );
 
   useEffect(() => {
+    const getIpData = async () => {
+      const res = await axios.get("https://geolocation-db.com/json/");
+      setIpData(res.data);
+    };
     if (
       guesses.length === MAX_TRY_COUNT &&
       guesses[guesses.length - 1].distance > 0
@@ -111,8 +125,21 @@ export function Game({ settingsData }: GameProps) {
         autoClose: false,
         delay: 2000,
       });
+      getIpData();
     }
   }, [country, guesses, i18n.resolvedLanguage]);
+
+  useEffect(() => {
+    if (ipData) {
+      axios.post("/tradle/score", {
+        date: new Date(),
+        guesses,
+        ip: ipData,
+        answer: country,
+        won,
+      });
+    }
+  }, [guesses, ipData, won, country]);
 
   let iframeSrc = "https://oec.world/en/tradle/aprilfools.html";
   let oecLink = "https://oec.world/";
