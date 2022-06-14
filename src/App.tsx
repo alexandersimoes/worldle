@@ -36,7 +36,7 @@ function App() {
         position="top-center"
         transition={Flip}
         theme={settingsData.theme}
-        autoClose={8000}
+        autoClose={5000}
         bodyClassName="font-bold text-center"
       />
       {i18n.resolvedLanguage === "fr" ? (
