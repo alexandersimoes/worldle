@@ -106,7 +106,7 @@ export function Game({ settingsData }: GameProps) {
       if (newGuess.distance === 0) {
         setWon(true);
         getIpData();
-        toast.success(t("welldone"), { delay: 2000 });
+        toast.success(t("Well done"), { delay: 2000 });
       }
     },
     [addGuess, country, currentGuess, i18n.resolvedLanguage, t, isAprilFools]
