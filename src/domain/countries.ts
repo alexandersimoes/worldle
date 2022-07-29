@@ -774,7 +774,7 @@ export const countries: Country[] = [
     name: "El Salvador",
   },
   { code: "SY", latitude: 34.802075, longitude: 38.996815, name: "Syria" },
-  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Swaziland" },
+  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Eswatini" },
   {
     code: "TC",
     latitude: 21.694025,
