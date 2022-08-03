@@ -1,53 +1,34 @@
-import axios from "axios";
+import { csv } from "d3-fetch";
 import { useEffect, useMemo, useState } from "react";
 import seedrandom from "seedrandom";
 import { countriesWithImage, Country } from "../domain/countries";
 
-function isNumeric(value: string) {
-  return /^-?\d+$/.test(value);
-}
-function csvJSON(csv: string, delimiter = "\t") {
-  const lines = csv.replace(/\r/g, "").split("\n");
-  const result = [];
-  const headers = lines[0].split(delimiter);
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i]) continue;
-    const obj: any = {};
-    const currentline: any = lines[i].split(delimiter);
-    for (let j = 0; j < headers.length; j++)
-      obj[headers[j]] = isNumeric(currentline[j])
-        ? currentline[j] * 1
-        : currentline[j];
-
-    result.push(obj);
-  }
-  return result;
+interface DateCountry {
+  country: string;
+  date: string;
 }
 
-const getCountry = async (dayString: string) => {
+export function useCountry(dayString: string): [Country, number, number] {
+  const [forcedCountryCode, setForcedCountryCode] = useState("");
   const date = new Date(dayString);
   const currDate = `${date.getFullYear()}-${
     date.getMonth() + 1
   }-${date.getDate()}`;
-  return await axios
-    .get("data.csv")
-    .then((res) => csvJSON(res.data, ","))
-    .then((data) => {
-      return data
-        .filter((el) => el["date"] === currDate)[0]
-        .country.toUpperCase();
-    });
-};
 
-export function useCountry(dayString: string): [Country, number, number] {
-  const [forcedCountryCode, setForcedCountryCode] = useState("");
   useEffect(() => {
-    async function fetchData() {
-      const code = await getCountry(dayString.replace("tradle.", ""));
-      setForcedCountryCode(code);
-    }
-    fetchData();
-  });
+    csv("data.csv", (d) => {
+      return { country: d.country, date: d.date };
+    }).then((data) => {
+      setForcedCountryCode(
+        data.length
+          ? (
+              data.find((el) => el.date === currDate) as DateCountry
+            )?.country.toUpperCase() || ""
+          : ""
+      );
+    });
+  }, [currDate]);
+
   const country = useMemo(() => {
     const forcedCountry =
       forcedCountryCode !== ""
