@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { InfosFr } from "./components/panels/InfosFr";
 import { Settings } from "./components/panels/Settings";
 import { useSettings } from "./hooks/useSettings";
-import { Tradele } from "./components/Tradele";
 import { Stats } from "./components/panels/Stats";
 
 function App() {
