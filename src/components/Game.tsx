@@ -39,6 +39,7 @@ export function Game({ settingsData }: GameProps) {
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [country, randomAngle, imageScale] = useCountry(`tradle.${dayString}`);
 
   const [currentGuess, setCurrentGuess] = useState<string>("");
