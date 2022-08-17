@@ -28,12 +28,15 @@ function App() {
 
   return (
     <>
+      <div className="absolute hidden md:block">
+        <img src="images/top-ship.png" alt="logo" width="371" />
+      </div>
       <ToastContainer
         hideProgressBar
         position="top-center"
         transition={Flip}
         theme={settingsData.theme}
-        autoClose={2000}
+        autoClose={5000}
         bodyClassName="font-bold text-center"
       />
       {i18n.resolvedLanguage === "fr" ? (
@@ -61,10 +64,10 @@ function App() {
         distanceUnit={settingsData.distanceUnit}
       />
       <div
-        className="flex justify-center flex-auto"
+        className="flex justify-center flex-auto relative"
         // style={{ background: "linear-gradient(#2c5363,#0f2027)" }}
       >
-        <div className="w-full max-w-lg flex flex-col">
+        <div className="w-full max-w-lg flex flex-col relative z-10 bg-white bg-opacity-75 md:bg-transparent">
           <header className="border-b-2 px-3 border-gray-200 flex justify-between">
             <button
               className="mr-3 text-xl"
@@ -137,6 +140,9 @@ function App() {
               {t("buyMeACoffee")}
             </a>
           </footer>
+        </div>
+        <div className="absolute bottom-0 right-0 z-0">
+          <img src="images/bottom-ship.png" alt="logo" width="342" />
         </div>
       </div>
     </>

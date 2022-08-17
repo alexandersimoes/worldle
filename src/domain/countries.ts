@@ -280,12 +280,12 @@ export const countries: Country[] = [
     name: "Netherlands Antilles",
   },
   { code: "AO", latitude: -11.202692, longitude: 17.873887, name: "Angola" },
-  {
-    code: "AQ",
-    latitude: -75.250973,
-    longitude: -0.071389,
-    name: "Antarctica",
-  },
+  // {
+  //   code: "AQ",
+  //   latitude: -75.250973,
+  //   longitude: -0.071389,
+  //   name: "Antarctica",
+  // },
   {
     code: "AR",
     latitude: -38.416097,
@@ -332,12 +332,12 @@ export const countries: Country[] = [
   { code: "BR", latitude: -14.235004, longitude: -51.92528, name: "Brazil" },
   { code: "BS", latitude: 25.03428, longitude: -77.39628, name: "Bahamas" },
   { code: "BT", latitude: 27.514162, longitude: 90.433601, name: "Bhutan" },
-  {
-    code: "BV",
-    latitude: -54.423199,
-    longitude: 3.413194,
-    name: "Bouvet Island",
-  },
+  // {
+  //   code: "BV",
+  //   latitude: -54.423199,
+  //   longitude: 3.413194,
+  //   name: "Bouvet Island",
+  // },
   { code: "BW", latitude: -22.328474, longitude: 24.684866, name: "Botswana" },
   { code: "BY", latitude: 53.709807, longitude: 27.953389, name: "Belarus" },
   { code: "BZ", latitude: 17.189877, longitude: -88.49765, name: "Belize" },
@@ -418,12 +418,12 @@ export const countries: Country[] = [
   { code: "EC", latitude: -1.831239, longitude: -78.183406, name: "Ecuador" },
   { code: "EE", latitude: 58.595272, longitude: 25.013607, name: "Estonia" },
   { code: "EG", latitude: 26.820553, longitude: 30.802498, name: "Egypt" },
-  {
-    code: "EH",
-    latitude: 24.215527,
-    longitude: -12.885834,
-    name: "Western Sahara",
-  },
+  // {
+  //   code: "EH",
+  //   latitude: 24.215527,
+  //   longitude: -12.885834,
+  //   name: "Western Sahara",
+  // },
   { code: "ER", latitude: 15.179384, longitude: 39.782334, name: "Eritrea" },
   { code: "ES", latitude: 40.463667, longitude: -3.74922, name: "Spain" },
   { code: "ET", latitude: 9.145, longitude: 40.489673, name: "Ethiopia" },
@@ -436,12 +436,12 @@ export const countries: Country[] = [
     name: "Falkland Islands (Malvinas)",
   },
   { code: "FM", latitude: 7.425554, longitude: 150.550812, name: "Micronesia" },
-  {
-    code: "FO",
-    latitude: 61.892635,
-    longitude: -6.911806,
-    name: "Faroe Islands",
-  },
+  // {
+  //   code: "FO",
+  //   latitude: 61.892635,
+  //   longitude: -6.911806,
+  //   name: "Faroe Islands",
+  // },
   { code: "FR", latitude: 46.227638, longitude: 2.213749, name: "France" },
   { code: "GA", latitude: -0.803689, longitude: 11.609444, name: "Gabon" },
   {
@@ -452,24 +452,24 @@ export const countries: Country[] = [
   },
   { code: "GD", latitude: 12.262776, longitude: -61.604171, name: "Grenada" },
   { code: "GE", latitude: 42.315407, longitude: 43.356892, name: "Georgia" },
-  {
-    code: "GF",
-    latitude: 3.933889,
-    longitude: -53.125782,
-    name: "French Guiana",
-  },
-  { code: "GG", latitude: 49.465691, longitude: -2.585278, name: "Guernsey" },
+  // {
+  //   code: "GF",
+  //   latitude: 3.933889,
+  //   longitude: -53.125782,
+  //   name: "French Guiana",
+  // },
+  // { code: "GG", latitude: 49.465691, longitude: -2.585278, name: "Guernsey" },
   { code: "GH", latitude: 7.946527, longitude: -1.023194, name: "Ghana" },
-  { code: "GI", latitude: 36.137741, longitude: -5.345374, name: "Gibraltar" },
+  // { code: "GI", latitude: 36.137741, longitude: -5.345374, name: "Gibraltar" },
   { code: "GL", latitude: 71.706936, longitude: -42.604303, name: "Greenland" },
   { code: "GM", latitude: 13.443182, longitude: -15.310139, name: "Gambia" },
   { code: "GN", latitude: 9.945587, longitude: -9.696645, name: "Guinea" },
-  {
-    code: "GP",
-    latitude: 16.995971,
-    longitude: -62.067641,
-    name: "Guadeloupe",
-  },
+  // {
+  //   code: "GP",
+  //   latitude: 16.995971,
+  //   longitude: -62.067641,
+  //   name: "Guadeloupe",
+  // },
   {
     code: "GQ",
     latitude: 1.650801,
@@ -477,14 +477,14 @@ export const countries: Country[] = [
     name: "Equatorial Guinea",
   },
   { code: "GR", latitude: 39.074208, longitude: 21.824312, name: "Greece" },
-  {
-    code: "GS",
-    latitude: -54.429579,
-    longitude: -36.587909,
-    name: "South Georgia and the South Sandwich Islands",
-  },
+  // {
+  //   code: "GS",
+  //   latitude: -54.429579,
+  //   longitude: -36.587909,
+  //   name: "South Georgia and the South Sandwich Islands",
+  // },
   { code: "GT", latitude: 15.783471, longitude: -90.230759, name: "Guatemala" },
-  { code: "GU", latitude: 13.444304, longitude: 144.793731, name: "Guam" },
+  // { code: "GU", latitude: 13.444304, longitude: 144.793731, name: "Guam" },
   {
     code: "GW",
     latitude: 11.803749,
@@ -492,14 +492,14 @@ export const countries: Country[] = [
     name: "Guinea-Bissau",
   },
   { code: "GY", latitude: 4.860416, longitude: -58.93018, name: "Guyana" },
-  { code: "GZ", latitude: 31.354676, longitude: 34.308825, name: "Gaza Strip" },
+  // { code: "GZ", latitude: 31.354676, longitude: 34.308825, name: "Gaza Strip" },
   { code: "HK", latitude: 22.396428, longitude: 114.109497, name: "Hong Kong" },
-  {
-    code: "HM",
-    latitude: -53.08181,
-    longitude: 73.504158,
-    name: "Heard Island and McDonald Islands",
-  },
+  // {
+  //   code: "HM",
+  //   latitude: -53.08181,
+  //   longitude: 73.504158,
+  //   name: "Heard Island and McDonald Islands",
+  // },
   { code: "HN", latitude: 15.199999, longitude: -86.241905, name: "Honduras" },
   { code: "HR", latitude: 45.1, longitude: 15.2, name: "Croatia" },
   { code: "HT", latitude: 18.971187, longitude: -72.285215, name: "Haiti" },
@@ -507,19 +507,19 @@ export const countries: Country[] = [
   { code: "ID", latitude: -0.789275, longitude: 113.921327, name: "Indonesia" },
   { code: "IE", latitude: 53.41291, longitude: -8.24389, name: "Ireland" },
   { code: "IL", latitude: 31.046051, longitude: 34.851612, name: "Israel" },
-  {
-    code: "IM",
-    latitude: 54.236107,
-    longitude: -4.548056,
-    name: "Isle of Man",
-  },
+  // {
+  //   code: "IM",
+  //   latitude: 54.236107,
+  //   longitude: -4.548056,
+  //   name: "Isle of Man",
+  // },
   { code: "IN", latitude: 20.593684, longitude: 78.96288, name: "India" },
-  {
-    code: "IO",
-    latitude: -6.343194,
-    longitude: 71.876519,
-    name: "British Indian Ocean Territory",
-  },
+  // {
+  //   code: "IO",
+  //   latitude: -6.343194,
+  //   longitude: 71.876519,
+  //   name: "British Indian Ocean Territory",
+  // },
   { code: "IQ", latitude: 33.223191, longitude: 43.679291, name: "Iraq" },
   { code: "IR", latitude: 32.427908, longitude: 53.688046, name: "Iran" },
   { code: "IS", latitude: 64.963051, longitude: -19.020835, name: "Iceland" },
@@ -567,7 +567,7 @@ export const countries: Country[] = [
     longitude: -60.978893,
     name: "Saint Lucia",
   },
-  { code: "LI", latitude: 47.166, longitude: 9.555373, name: "Liechtenstein" },
+  // { code: "LI", latitude: 47.166, longitude: 9.555373, name: "Liechtenstein" },
   { code: "LK", latitude: 7.873054, longitude: 80.771797, name: "Sri Lanka" },
   { code: "LR", latitude: 6.428055, longitude: -9.429499, name: "Liberia" },
   { code: "LS", latitude: -29.609988, longitude: 28.233608, name: "Lesotho" },
@@ -576,9 +576,9 @@ export const countries: Country[] = [
   { code: "LV", latitude: 56.879635, longitude: 24.603189, name: "Latvia" },
   { code: "LY", latitude: 26.3351, longitude: 17.228331, name: "Libya" },
   { code: "MA", latitude: 31.791702, longitude: -7.09262, name: "Morocco" },
-  { code: "MC", latitude: 43.750298, longitude: 7.412841, name: "Monaco" },
+  // { code: "MC", latitude: 43.750298, longitude: 7.412841, name: "Monaco" },
   { code: "MD", latitude: 47.411631, longitude: 28.369885, name: "Moldova" },
-  { code: "ME", latitude: 42.708678, longitude: 19.37439, name: "Montenegro" },
+  // { code: "ME", latitude: 42.708678, longitude: 19.37439, name: "Montenegro" },
   {
     code: "MG",
     latitude: -18.766947,
@@ -705,17 +705,17 @@ export const countries: Country[] = [
     longitude: -66.590149,
     name: "Puerto Rico",
   },
-  {
-    code: "PS",
-    latitude: 31.952162,
-    longitude: 35.233154,
-    name: "Palestine",
-  },
+  // {
+  //   code: "PS",
+  //   latitude: 31.952162,
+  //   longitude: 35.233154,
+  //   name: "Palestine",
+  // },
   { code: "PT", latitude: 39.399872, longitude: -8.224454, name: "Portugal" },
   { code: "PW", latitude: 7.51498, longitude: 134.58252, name: "Palau" },
   { code: "PY", latitude: -23.442503, longitude: -58.443832, name: "Paraguay" },
   { code: "QA", latitude: 25.354826, longitude: 51.183884, name: "Qatar" },
-  { code: "RE", latitude: -21.115141, longitude: 55.536384, name: "Réunion" },
+  // { code: "RE", latitude: -21.115141, longitude: 55.536384, name: "Réunion" },
   { code: "RO", latitude: 45.943161, longitude: 24.96676, name: "Romania" },
   { code: "RS", latitude: 44.016521, longitude: 21.005859, name: "Serbia" },
   { code: "RU", latitude: 61.52401, longitude: 105.318756, name: "Russia" },
@@ -744,12 +744,12 @@ export const countries: Country[] = [
     name: "Saint Helena",
   },
   { code: "SI", latitude: 46.151241, longitude: 14.995463, name: "Slovenia" },
-  {
-    code: "SJ",
-    latitude: 77.553604,
-    longitude: 23.670272,
-    name: "Svalbard and Jan Mayen",
-  },
+  // {
+  //   code: "SJ",
+  //   latitude: 77.553604,
+  //   longitude: 23.670272,
+  //   name: "Svalbard and Jan Mayen",
+  // },
   { code: "SK", latitude: 48.669026, longitude: 19.699024, name: "Slovakia" },
   {
     code: "SL",
@@ -774,7 +774,7 @@ export const countries: Country[] = [
     name: "El Salvador",
   },
   { code: "SY", latitude: 34.802075, longitude: 38.996815, name: "Syria" },
-  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Swaziland" },
+  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Eswatini" },
   {
     code: "TC",
     latitude: 21.694025,
@@ -814,7 +814,7 @@ export const countries: Country[] = [
     name: "Trinidad and Tobago",
   },
   { code: "TV", latitude: -7.109535, longitude: 177.64933, name: "Tuvalu" },
-  { code: "TW", latitude: 23.69781, longitude: 120.960515, name: "Taiwan" },
+  // { code: "TW", latitude: 23.69781, longitude: 120.960515, name: "Taiwan" },
   { code: "TZ", latitude: -6.369028, longitude: 34.888822, name: "Tanzania" },
   { code: "UA", latitude: 48.379433, longitude: 31.16558, name: "Ukraine" },
   { code: "UG", latitude: 1.373333, longitude: 32.290275, name: "Uganda" },
@@ -826,12 +826,12 @@ export const countries: Country[] = [
   },
   { code: "UY", latitude: -32.522779, longitude: -55.765835, name: "Uruguay" },
   { code: "UZ", latitude: 41.377491, longitude: 64.585262, name: "Uzbekistan" },
-  {
-    code: "VA",
-    latitude: 41.902916,
-    longitude: 12.453389,
-    name: "Vatican City",
-  },
+  // {
+  //   code: "VA",
+  //   latitude: 41.902916,
+  //   longitude: 12.453389,
+  //   name: "Vatican City",
+  // },
   {
     code: "VC",
     latitude: 12.984305,
@@ -839,18 +839,18 @@ export const countries: Country[] = [
     name: "Saint Vincent and the Grenadines",
   },
   { code: "VE", latitude: 6.42375, longitude: -66.58973, name: "Venezuela" },
-  {
-    code: "VG",
-    latitude: 18.420695,
-    longitude: -64.639968,
-    name: "British Virgin Islands",
-  },
-  {
-    code: "VI",
-    latitude: 18.335765,
-    longitude: -64.896335,
-    name: "U.S. Virgin Islands",
-  },
+  // {
+  //   code: "VG",
+  //   latitude: 18.420695,
+  //   longitude: -64.639968,
+  //   name: "British Virgin Islands",
+  // },
+  // {
+  //   code: "VI",
+  //   latitude: 18.335765,
+  //   longitude: -64.896335,
+  //   name: "U.S. Virgin Islands",
+  // },
   { code: "VN", latitude: 14.058324, longitude: 108.277199, name: "Vietnam" },
   { code: "VU", latitude: -15.376706, longitude: 166.959158, name: "Vanuatu" },
   {
@@ -862,7 +862,6 @@ export const countries: Country[] = [
   { code: "WS", latitude: -13.759029, longitude: -172.104629, name: "Samoa" },
   { code: "XK", latitude: 42.602636, longitude: 20.902977, name: "Kosovo" },
   { code: "YE", latitude: 15.552727, longitude: 48.516388, name: "Yemen" },
-  { code: "YT", latitude: -12.8275, longitude: 45.166244, name: "Mayotte" },
   {
     code: "ZA",
     latitude: -30.559482,
@@ -871,6 +870,110 @@ export const countries: Country[] = [
   },
   { code: "ZM", latitude: -13.133897, longitude: 27.849332, name: "Zambia" },
   { code: "ZW", latitude: -19.015438, longitude: 29.154857, name: "Zimbabwe" },
+];
+
+export const fictionalCountries: Country[] = [
+  { code: "AA", latitude: 12.546245, longitude: 1.601554, name: "Atlantis" },
+  {
+    code: "AB",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Central City",
+  },
+  {
+    code: "AC",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Cerulean City",
+  },
+  {
+    code: "AD",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Deepheart Valley",
+  },
+  {
+    code: "AE",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Friendship Island",
+  },
+  { code: "AF", latitude: 12.546245, longitude: 1.601554, name: "Gallifrey" },
+  { code: "AG", latitude: 12.546245, longitude: 1.601554, name: "Gotham" },
+  {
+    code: "AH",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Green Hills",
+  },
+  {
+    code: "AI",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Hill Valley",
+  },
+  { code: "AJ", latitude: 42.546245, longitude: 1.601554, name: "Land of Oz" },
+  {
+    code: "AK",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Liberty City",
+  },
+  { code: "AL", latitude: 12.546245, longitude: 1.601554, name: "Metropolis" },
+  { code: "AM", latitude: 12.546245, longitude: 1.601554, name: "Mos Eisley" },
+  {
+    code: "AN",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Mushroom Kingdom",
+  },
+  { code: "AO", latitude: 12.546245, longitude: 1.601554, name: "Narnia" },
+  {
+    code: "AP",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Pelotillehue",
+  },
+  {
+    code: "AQ",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Phantom Island",
+  },
+  {
+    code: "AR",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Pleasantville",
+  },
+  {
+    code: "AS",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Raccoon City",
+  },
+  {
+    code: "AT",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "San Andreas",
+  },
+  { code: "AU", latitude: 12.546245, longitude: 1.601554, name: "Smallville" },
+  {
+    code: "AV",
+    latitude: 12.546245,
+    longitude: 1.601554,
+    name: "Springfield",
+  },
+  { code: "AW", latitude: 12.546245, longitude: 1.601554, name: "The Shire" },
+  { code: "AX", latitude: 12.546245, longitude: 1.601554, name: "Twin Peaks" },
+  { code: "AY", latitude: 12.546245, longitude: 1.601554, name: "Vice City" },
+  { code: "AZ", latitude: 12.546245, longitude: 1.601554, name: "Wakanda" },
+  { code: "BA", latitude: 12.546245, longitude: 1.601554, name: "Westeros" },
+  { code: "BB", latitude: 12.546245, longitude: 1.601554, name: "Westview" },
+  { code: "BC", latitude: 12.546245, longitude: 1.601554, name: "Westworld" },
+  { code: "BD", latitude: 12.546245, longitude: 1.601554, name: "Winterfell" },
+  { code: "BE", latitude: 12.546245, longitude: 1.601554, name: "Zion" },
 ];
 
 export const countriesWithImage = countries.filter((c) =>
@@ -1144,13 +1247,19 @@ export const countryISOMapping: Iso = {
   XK: "XKX",
 };
 
-export function getCountryPrettyName(str: string | undefined): string {
+export function getCountryPrettyName(
+  str: string | undefined,
+  isAprilFools = false
+): string {
+  const items = isAprilFools ? fictionalCountries : countries;
   if (str) {
-    const country = countries.find(
+    const country = items.find(
       (c) => sanitizeCountryName(c.name.toLowerCase()) === str
     );
     if (country) {
-      return `${flag(country?.code)} ${country.name}`;
+      return isAprilFools
+        ? `${country.name}`
+        : `${flag(country?.code)} ${country.name}`;
     }
   }
   return `${str}`;

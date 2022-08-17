@@ -12,6 +12,7 @@ import {
   getCountryName,
   sanitizeCountryName,
   countryISOMapping,
+  fictionalCountries,
 } from "../domain/countries";
 import { useGuesses } from "../hooks/useGuesses";
 import { CountryInput } from "./CountryInput";
@@ -22,6 +23,8 @@ import { useTranslation } from "react-i18next";
 import { SettingsData } from "../hooks/useSettings";
 import { useMode } from "../hooks/useMode";
 import { useCountry } from "../hooks/useCountry";
+import axios from "axios";
+import { SelectDropdown } from "@mantine/core/lib/components/Select/SelectDropdown/SelectDropdown";
 
 function getDayString() {
   return DateTime.now().toFormat("yyyy-MM-dd");
@@ -36,12 +39,24 @@ interface GameProps {
 export function Game({ settingsData }: GameProps) {
   const { t, i18n } = useTranslation();
   const dayString = useMemo(getDayString, []);
+  const isAprilFools = dayString === "2022-04-01";
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [country, randomAngle, imageScale] = useCountry(`tradle.${dayString}`);
+  let [country, randomAngle, imageScale] = useCountry(`tradle.${dayString}`);
 
+  if (isAprilFools) {
+    country = {
+      code: "AJ",
+      latitude: 42.546245,
+      longitude: 1.601554,
+      name: "Land of Oz",
+    };
+  }
+
+  const [ipData, setIpData] = useState(null);
+  const [won, setWon] = useState(false);
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [countryValue, setCountryValue] = useState<string>("");
   const [guesses, addGuess] = useGuesses(dayString);
@@ -63,7 +78,12 @@ export function Game({ settingsData }: GameProps) {
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const guessedCountry = countries.find(
+      const getIpData = async () => {
+        const res = await axios.get("https://geolocation-db.com/json/");
+        setIpData(res.data);
+      };
+      const items = isAprilFools ? fictionalCountries : countries;
+      const guessedCountry = items.find(
         (country) =>
           sanitizeCountryName(
             getCountryName(i18n.resolvedLanguage, country)
@@ -86,13 +106,19 @@ export function Game({ settingsData }: GameProps) {
       setCountryValue("");
 
       if (newGuess.distance === 0) {
+        setWon(true);
+        getIpData();
         toast.success(t("welldone"), { delay: 2000 });
       }
     },
-    [addGuess, country, currentGuess, i18n.resolvedLanguage, t]
+    [addGuess, country, currentGuess, i18n.resolvedLanguage, t, isAprilFools]
   );
 
   useEffect(() => {
+    const getIpData = async () => {
+      const res = await axios.get("https://geolocation-db.com/json/");
+      setIpData(res.data);
+    };
     if (
       guesses.length === MAX_TRY_COUNT &&
       guesses[guesses.length - 1].distance > 0
@@ -101,13 +127,32 @@ export function Game({ settingsData }: GameProps) {
         autoClose: false,
         delay: 2000,
       });
+      getIpData();
     }
   }, [country, guesses, i18n.resolvedLanguage]);
 
-  const country3LetterCode = countryISOMapping[country.code].toLowerCase();
+  useEffect(() => {
+    if (ipData) {
+      axios.post("/tradle/score", {
+        date: new Date(),
+        guesses,
+        ip: ipData,
+        answer: country,
+        won,
+      });
+    }
+  }, [guesses, ipData, won, country]);
+
+  let iframeSrc = "https://oec.world/en/tradle/aprilfools.html";
+  let oecLink = "https://oec.world/";
+  if (!isAprilFools) {
+    const country3LetterCode = countryISOMapping[country.code].toLowerCase();
+    iframeSrc = `https://oec.world/en/visualize/embed/tree_map/hs92/export/${country3LetterCode}/all/show/2020/?controls=false&title=false&click=false`;
+    oecLink = `https://oec.world/en/profile/country/${country3LetterCode}`;
+  }
 
   return (
-    <div className="flex-grow flex flex-col mx-2">
+    <div className="flex-grow flex flex-col mx-2 relative">
       {hideImageMode && !gameEnded && (
         <button
           className="border-2 uppercase my-2 hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-slate-800 dark:active:bg-slate-700"
@@ -140,7 +185,7 @@ export function Game({ settingsData }: GameProps) {
           title="Country to guess"
           width="390"
           height="315"
-          src={`https://oec.world/en/visualize/embed/tree_map/hs92/export/${country3LetterCode}/all/show/2020/?controls=false&title=false&click=false`}
+          src={iframeSrc}
           frameBorder="0"
         />
       </div>
@@ -158,6 +203,7 @@ export function Game({ settingsData }: GameProps) {
         guesses={guesses}
         settingsData={settingsData}
         countryInputRef={countryInputRef}
+        isAprilFools={isAprilFools}
       />
       <div className="my-2">
         {gameEnded ? (
@@ -168,10 +214,11 @@ export function Game({ settingsData }: GameProps) {
               settingsData={settingsData}
               hideImageMode={hideImageMode}
               rotationMode={rotationMode}
+              isAprilFools={isAprilFools}
             />
             <a
               className="underline w-full text-center block mt-4 flex justify-center"
-              href={`https://oec.world/en/profile/country/${country3LetterCode}`}
+              href={oecLink}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -191,6 +238,13 @@ export function Game({ settingsData }: GameProps) {
               </svg>
               {t("showOnGoogleMaps")}
             </a>
+            {isAprilFools ? (
+              <div className="w-full text-center block mt-4 flex flex-col justify-center text-2xl font-bold">
+                <div>🐶 🚲 🌪 🏚</div>
+                <div>Happy April Fools!</div>
+                <div>👠 🤖 🦁 🎍</div>
+              </div>
+            ) : null}
           </>
         ) : (
           <form onSubmit={handleSubmit}>
@@ -199,6 +253,7 @@ export function Game({ settingsData }: GameProps) {
                 countryValue={countryValue}
                 setCountryValue={setCountryValue}
                 setCurrentGuess={setCurrentGuess}
+                isAprilFools={isAprilFools}
               />
               {/* <button
                 className="border-2 uppercase my-0.5 hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-slate-800 dark:active:bg-slate-700"
@@ -208,7 +263,7 @@ export function Game({ settingsData }: GameProps) {
               </button> */}
               <div className="text-left">
                 <button className="my-2 inline-block justify-end bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center">
-                  🌍 <span>Guess</span>
+                  {isAprilFools ? "🪄" : "🌍"} <span>Guess</span>
                 </button>
               </div>
             </div>

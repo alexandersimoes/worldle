@@ -155,6 +155,16 @@ export function Infos({ isOpen, close, settingsData }: InfosProps) {
           >
             @ximoes
           </a>
+          . Source code on{" "}
+          <a
+            className="underline"
+            href="https://github.com/alexandersimoes/tradle"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Github
+          </a>
+          .
         </div>
         <div>
           <a

@@ -19,6 +19,7 @@ interface ShareProps {
   settingsData: SettingsData;
   hideImageMode: boolean;
   rotationMode: boolean;
+  isAprilFools?: boolean;
 }
 
 export function Share({
@@ -27,6 +28,7 @@ export function Share({
   settingsData,
   hideImageMode,
   rotationMode,
+  isAprilFools = false,
 }: ShareProps) {
   const { t } = useTranslation();
   const { theme } = settingsData;
@@ -44,7 +46,9 @@ export function Share({
       : rotationMode
       ? " 🌀"
       : "";
-    const title = `#Tradle #${dayCount} ${guessCount}/6${difficultyModifierEmoji}`;
+    const title = isAprilFools
+      ? `#Tradle #AprilFoolsDay #${dayCount} ${guessCount}/6${difficultyModifierEmoji}`
+      : `#Tradle #${dayCount} ${guessCount}/6${difficultyModifierEmoji}`;
 
     const guessString = guesses
       .map((guess) => {
@@ -54,7 +58,7 @@ export function Share({
       .join("\n");
 
     return [title, guessString, "https://oec.world/en/tradle"].join("\n");
-  }, [dayString, guesses, hideImageMode, rotationMode, theme]);
+  }, [dayString, guesses, hideImageMode, rotationMode, theme, isAprilFools]);
 
   return (
     <CopyToClipboard

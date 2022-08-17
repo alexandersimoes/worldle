@@ -29,19 +29,33 @@ const DIRECTION_ARROWS: Record<Direction, string> = {
   NNW: "↖️",
 };
 
+const DIRECTION_ARROWS_APRIL_FOOLS: Record<number, string> = {
+  0: "🐶",
+  1: "🌪",
+  2: "🏚",
+  3: "🚲",
+  4: "👠",
+  5: "🦁",
+  6: "🤖",
+};
+
 const SQUARE_ANIMATION_LENGTH = 250;
 type AnimationState = "NOT_STARTED" | "RUNNING" | "ENDED";
 
 interface GuessRowProps {
+  index: number;
   guess?: Guess;
   settingsData: SettingsData;
   countryInputRef?: React.RefObject<HTMLInputElement>;
+  isAprilFools?: boolean;
 }
 
 export function GuessRow({
+  index,
   guess,
   settingsData,
   countryInputRef,
+  isAprilFools = false,
 }: GuessRowProps) {
   const { distanceUnit, theme } = settingsData;
   const proximity = guess != null ? computeProximityPercent(guess.distance) : 0;
@@ -99,7 +113,7 @@ export function GuessRow({
           </div>
           <div className="border-2 h-8 col-span-1 animate-reveal">
             <CountUp
-              end={proximity}
+              end={isAprilFools ? 100 : proximity}
               suffix="%"
               duration={(SQUARE_ANIMATION_LENGTH * 5) / 1000}
             />
@@ -117,7 +131,7 @@ export function GuessRow({
             }
           >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-              {getCountryPrettyName(guess?.name)}
+              {getCountryPrettyName(guess?.name, isAprilFools)}
             </p>
           </div>
           <div
@@ -127,7 +141,11 @@ export function GuessRow({
                 : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-2 animate-reveal"
             }
           >
-            {guess && formatDistance(guess.distance, distanceUnit)}
+            {guess && isAprilFools
+              ? "⁇"
+              : guess
+              ? formatDistance(guess.distance, distanceUnit)
+              : null}
           </div>
           <div
             className={
@@ -138,7 +156,11 @@ export function GuessRow({
           >
             {guess?.distance === 0
               ? "🎉"
-              : guess && DIRECTION_ARROWS[guess.direction]}
+              : guess && isAprilFools
+              ? "⁇"
+              : guess
+              ? DIRECTION_ARROWS[guess.direction]
+              : null}
           </div>
           <div
             className={
@@ -147,7 +169,9 @@ export function GuessRow({
                 : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
             }
           >
-            {`${proximity}%`}
+            {isAprilFools
+              ? DIRECTION_ARROWS_APRIL_FOOLS[index]
+              : `${proximity}%`}
           </div>
         </>
       );

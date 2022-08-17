@@ -21,6 +21,7 @@ export function Panel({ title, isOpen, close, children }: PanelProps) {
       onRequestClose={close}
       className="flex justify-center h-full"
       ariaHideApp={false}
+      style={{ overlay: { zIndex: 100 } }}
     >
       <div className="w-full max-w-lg bg-white text-sm overflow-auto px-2">
         <header className="border-b-2 border-gray-200 mb-3 flex">
