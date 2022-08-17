@@ -6,9 +6,9 @@ Play this international wordle here: https://oec.world/en/tradle/!
 
 To test and develop new features, make sure you meet the following requirements:
 
-|         | version |
-|---------|---------|
-| node.js | >14     |
+| **item** | **version** |
+|----------|-------------|
+| node.js  |     >14     |
 
 ## Resources used:
 
