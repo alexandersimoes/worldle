@@ -11,9 +11,9 @@ interface DateCountry {
 export function useCountry(dayString: string): [Country, number, number] {
   const [forcedCountryCode, setForcedCountryCode] = useState("");
   const date = new Date(dayString);
-  const currDate = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
+  const currDate = `${date.getUTCFullYear()}-${
+    date.getUTCMonth() + 1
+  }-${date.getUTCDate()}`;
 
   useEffect(() => {
     csv("data.csv", (d) => {
