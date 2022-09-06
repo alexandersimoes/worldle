@@ -42,7 +42,7 @@ export function Game({ settingsData }: GameProps) {
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
-  const countryData = useCountry(`tradle.${dayString}`);
+  const countryData = useCountry(`${dayString}`);
   let country = countryData[0];
 
   if (isAprilFools) {
