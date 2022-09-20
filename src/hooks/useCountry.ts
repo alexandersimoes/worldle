@@ -1,6 +1,5 @@
 import { csv } from "d3-fetch";
 import { useEffect, useMemo, useState } from "react";
-import seedrandom from "seedrandom";
 import { countriesWithImage, Country } from "../domain/countries";
 
 interface DateCountry {
@@ -8,12 +7,15 @@ interface DateCountry {
   date: string;
 }
 
-export function useCountry(dayString: string): [Country, number, number] {
+export function useCountry(dayString: string): [Country | undefined] {
   const [forcedCountryCode, setForcedCountryCode] = useState("");
   const date = new Date(dayString);
-  const currDate = `${date.getUTCFullYear()}-${
-    date.getUTCMonth() + 1
-  }-${date.getUTCDate()}`;
+  // const currDate = `${date.getUTCFullYear()}-${
+  //   date.getUTCMonth() + 1
+  // }-${date.getUTCDate()}`;
+  const currDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
 
   useEffect(() => {
     csv("data.csv", (d) => {
@@ -36,24 +38,8 @@ export function useCountry(dayString: string): [Country, number, number] {
             (country) => country.code === forcedCountryCode
           )
         : undefined;
-    return (
-      forcedCountry ??
-      countriesWithImage.reverse()[
-        Math.floor(seedrandom.alea(dayString)() * countriesWithImage.length)
-      ]
-    );
-  }, [forcedCountryCode, dayString]);
+    return forcedCountry;
+  }, [forcedCountryCode]);
 
-  const randomAngle = useMemo(
-    () => seedrandom.alea(dayString)() * 360,
-    [dayString]
-  );
-
-  const imageScale = useMemo(() => {
-    const normalizedAngle = 45 - (randomAngle % 90);
-    const radianAngle = (normalizedAngle * Math.PI) / 180;
-    return 1 / (Math.cos(radianAngle) * Math.sqrt(2));
-  }, [randomAngle]);
-
-  return [country, randomAngle, imageScale];
+  return [country];
 }

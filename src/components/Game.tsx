@@ -77,6 +77,7 @@ export function Game({ settingsData }: GameProps) {
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      if (!country) return;
       const getIpData = async () => {
         const res = await axios.get("https://geolocation-db.com/json/");
         setIpData(res.data);
@@ -122,10 +123,15 @@ export function Game({ settingsData }: GameProps) {
       guesses.length === MAX_TRY_COUNT &&
       guesses[guesses.length - 1].distance > 0
     ) {
-      toast.info(getCountryName(i18n.resolvedLanguage, country).toUpperCase(), {
-        autoClose: false,
-        delay: 2000,
-      });
+      const countryName = country
+        ? getCountryName(i18n.resolvedLanguage, country)
+        : "";
+      if (countryName) {
+        toast.info(countryName.toUpperCase(), {
+          autoClose: false,
+          delay: 2000,
+        });
+      }
       getIpData();
     }
   }, [country, guesses, i18n.resolvedLanguage]);
@@ -145,7 +151,9 @@ export function Game({ settingsData }: GameProps) {
   let iframeSrc = "https://oec.world/en/tradle/aprilfools.html";
   let oecLink = "https://oec.world/";
   if (!isAprilFools) {
-    const country3LetterCode = countryISOMapping[country.code].toLowerCase();
+    const country3LetterCode = country?.code
+      ? countryISOMapping[country.code].toLowerCase()
+      : "";
     iframeSrc = `https://oec.world/en/visualize/embed/tree_map/hs92/export/${country3LetterCode}/all/show/2020/?controls=false&title=false&click=false`;
     oecLink = `https://oec.world/en/profile/country/${country3LetterCode}`;
   }

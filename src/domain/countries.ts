@@ -980,16 +980,18 @@ export const countriesWithImage = countries.filter((c) =>
   countryCodesWithImage.includes(c.code.toLowerCase())
 );
 
-export function getCountryName(language: string, country: Country) {
-  return country.name;
+export function getCountryName(language: string, country: Country | undefined) {
+  return country?.name;
 }
 
-export function sanitizeCountryName(countryName: string): string {
+export function sanitizeCountryName(countryName: string | undefined): string {
   return countryName
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[- '()]/g, "")
-    .toLowerCase();
+    ? countryName
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[- '()]/g, "")
+        .toLowerCase()
+    : "";
 }
 
 export interface Iso {
