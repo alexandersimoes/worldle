@@ -36,8 +36,9 @@ export function Share({
   const shareText = useMemo(() => {
     const guessCount =
       guesses[guesses.length - 1]?.distance === 0 ? guesses.length : "X";
+    const endDate = DateTime.fromISO(dayString);
     const dayCount = Math.floor(
-      Interval.fromDateTimes(START_DATE, new Date(dayString)).length("day")
+      Interval.fromDateTimes(START_DATE, endDate).length("day")
     );
     const difficultyModifierEmoji = hideImageMode
       ? " 🙈"
