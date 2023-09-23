@@ -2,6 +2,7 @@
 // Countries with long/lat => https://developers.google.com/public-data/docs/canonical/countries_csv
 // Countries images => https://github.com/djaiss/mapsicon
 import { flag } from "country-emoji";
+import i18n from "../i18n";
 
 const countryCodesWithImage = [
   "ad",
@@ -1297,4 +1298,22 @@ export function getCountryPrettyName(
     }
   }
   return `${str}`;
+}
+
+export function getCountryByName(countryName: string): Country | undefined {
+  return countries.find(
+    (country) =>
+      sanitizeCountryName(getCountryName(i18n.resolvedLanguage, country)) ===
+      sanitizeCountryName(countryName)
+  );
+}
+
+export function getFictionalCountryByName(
+  countryName: string
+): Country | undefined {
+  return fictionalCountries.find(
+    (country) =>
+      sanitizeCountryName(getCountryName(i18n.resolvedLanguage, country)) ===
+      sanitizeCountryName(countryName)
+  );
 }

@@ -13,6 +13,8 @@ import {
   sanitizeCountryName,
   countryISOMapping,
   fictionalCountries,
+  getFictionalCountryByName,
+  getCountryByName,
 } from "../domain/countries";
 import { useGuesses } from "../hooks/useGuesses";
 import { CountryInput } from "./CountryInput";
@@ -38,7 +40,7 @@ interface GameProps {
 export function Game({ settingsData }: GameProps) {
   const { t, i18n } = useTranslation();
   const dayString = useMemo(getDayString, []);
-  const isAprilFools = dayString === "2022-04-01";
+  const isAprilFools = true; //dayString === "2022-04-01";
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
@@ -82,13 +84,9 @@ export function Game({ settingsData }: GameProps) {
         const res = await axios.get("https://geolocation-db.com/json/");
         setIpData(res.data);
       };
-      const items = isAprilFools ? fictionalCountries : countries;
-      const guessedCountry = items.find(
-        (country) =>
-          sanitizeCountryName(
-            getCountryName(i18n.resolvedLanguage, country)
-          ) === sanitizeCountryName(currentGuess)
-      );
+      const guessedCountry = isAprilFools
+        ? getFictionalCountryByName(currentGuess)
+        : getCountryByName(currentGuess);
 
       if (guessedCountry == null) {
         toast.error(t("unknownCountry"));
@@ -99,6 +97,7 @@ export function Game({ settingsData }: GameProps) {
         name: currentGuess,
         distance: geolib.getDistance(guessedCountry, country),
         direction: geolib.getCompassDirection(guessedCountry, country),
+        country: guessedCountry,
       };
 
       addGuess(newGuess);
