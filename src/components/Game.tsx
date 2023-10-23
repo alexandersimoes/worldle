@@ -8,11 +8,8 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import {
-  countries,
   getCountryName,
-  sanitizeCountryName,
   countryISOMapping,
-  fictionalCountries,
   getFictionalCountryByName,
   getCountryByName,
 } from "../domain/countries";
@@ -40,7 +37,7 @@ interface GameProps {
 export function Game({ settingsData }: GameProps) {
   const { t, i18n } = useTranslation();
   const dayString = useMemo(getDayString, []);
-  const isAprilFools = true; //dayString === "2022-04-01";
+  const isAprilFools = dayString === "2022-04-01";
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
@@ -110,7 +107,7 @@ export function Game({ settingsData }: GameProps) {
         toast.success(t("welldone"), { delay: 2000 });
       }
     },
-    [addGuess, country, currentGuess, i18n.resolvedLanguage, t, isAprilFools]
+    [addGuess, country, currentGuess, t, isAprilFools]
   );
 
   useEffect(() => {
