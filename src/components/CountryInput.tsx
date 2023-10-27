@@ -73,7 +73,11 @@ export function CountryInput({
       }
       data={items}
       filter={(value, item) =>
-        item.value.toLowerCase().includes(value.toLowerCase().trim()) ||
+        item.value
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .includes(value.toLowerCase().trim()) ||
         item.id.toLowerCase().includes(value.toLowerCase().trim())
       }
       onItemSubmit={(item) => {

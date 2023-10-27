@@ -37,9 +37,7 @@ export function Share({
     const guessCount =
       guesses[guesses.length - 1]?.distance === 0 ? guesses.length : "X";
     const dayCount = Math.floor(
-      Interval.fromDateTimes(START_DATE, DateTime.fromISO(dayString)).length(
-        "day"
-      )
+      Interval.fromDateTimes(START_DATE, new Date(dayString)).length("day")
     );
     const difficultyModifierEmoji = hideImageMode
       ? " 🙈"

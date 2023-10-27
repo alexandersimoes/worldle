@@ -137,7 +137,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {t("buyMeACoffee")}
+              Get more trade data on the OEC! 🌎
             </a>
           </footer>
         </div>

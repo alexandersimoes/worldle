@@ -8,11 +8,10 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import {
-  countries,
   getCountryName,
-  sanitizeCountryName,
   countryISOMapping,
-  fictionalCountries,
+  getFictionalCountryByName,
+  getCountryByName,
 } from "../domain/countries";
 import { useGuesses } from "../hooks/useGuesses";
 import { CountryInput } from "./CountryInput";
@@ -24,7 +23,6 @@ import { SettingsData } from "../hooks/useSettings";
 import { useMode } from "../hooks/useMode";
 import { useCountry } from "../hooks/useCountry";
 import axios from "axios";
-import { SelectDropdown } from "@mantine/core/lib/components/Select/SelectDropdown/SelectDropdown";
 
 function getDayString() {
   return DateTime.now().toFormat("yyyy-MM-dd");
@@ -43,7 +41,9 @@ export function Game({ settingsData }: GameProps) {
 
   const countryInputRef = useRef<HTMLInputElement>(null);
 
-  let [country] = useCountry(`tradle.${dayString}`);
+  const countryData = useCountry(`${dayString}`);
+  let country = countryData[0];
+
   if (isAprilFools) {
     country = {
       code: "AJ",
@@ -76,17 +76,14 @@ export function Game({ settingsData }: GameProps) {
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      if (!country) return;
       const getIpData = async () => {
         const res = await axios.get("https://geolocation-db.com/json/");
         setIpData(res.data);
       };
-      const items = isAprilFools ? fictionalCountries : countries;
-      const guessedCountry = items.find(
-        (country) =>
-          sanitizeCountryName(
-            getCountryName(i18n.resolvedLanguage, country)
-          ) === sanitizeCountryName(currentGuess)
-      );
+      const guessedCountry = isAprilFools
+        ? getFictionalCountryByName(currentGuess)
+        : getCountryByName(currentGuess);
 
       if (guessedCountry == null) {
         toast.error(t("unknownCountry"));
@@ -97,6 +94,7 @@ export function Game({ settingsData }: GameProps) {
         name: currentGuess,
         distance: geolib.getDistance(guessedCountry, country),
         direction: geolib.getCompassDirection(guessedCountry, country),
+        country: guessedCountry,
       };
 
       addGuess(newGuess);
@@ -109,7 +107,7 @@ export function Game({ settingsData }: GameProps) {
         toast.success(t("welldone"), { delay: 2000 });
       }
     },
-    [addGuess, country, currentGuess, i18n.resolvedLanguage, t, isAprilFools]
+    [addGuess, country, currentGuess, t, isAprilFools]
   );
 
   useEffect(() => {
@@ -121,32 +119,55 @@ export function Game({ settingsData }: GameProps) {
       guesses.length === MAX_TRY_COUNT &&
       guesses[guesses.length - 1].distance > 0
     ) {
-      toast.info(getCountryName(i18n.resolvedLanguage, country).toUpperCase(), {
-        autoClose: false,
-        delay: 2000,
-      });
+      const countryName = country
+        ? getCountryName(i18n.resolvedLanguage, country)
+        : "";
+      if (countryName) {
+        toast.info(countryName.toUpperCase(), {
+          autoClose: false,
+          delay: 2000,
+        });
+      }
       getIpData();
     }
   }, [country, guesses, i18n.resolvedLanguage]);
 
   useEffect(() => {
     if (ipData) {
-      axios.post("/tradle/score", {
-        date: new Date(),
-        guesses,
-        ip: ipData,
-        answer: country,
-        won,
-      });
+      axios
+        .post("/tradle/score", {
+          date: new Date(),
+          guesses,
+          ip: ipData,
+          answer: country,
+          won,
+        })
+        .catch(function (error) {
+          if (error.response) {
+            // Request made and server responded
+            console.log(
+              `⚠️ ${error.response.status}: Unable to post tradle score.`
+            );
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+        });
     }
   }, [guesses, ipData, won, country]);
 
   let iframeSrc = "https://oec.world/en/tradle/aprilfools.html";
   let oecLink = "https://oec.world/";
+  const country3LetterCode = country?.code
+    ? countryISOMapping[country.code].toLowerCase()
+    : "";
   if (!isAprilFools) {
     const country3LetterCode = countryISOMapping[country.code].toLowerCase();
     const oecCode = country.oecCode?.toLowerCase() ?? country3LetterCode;
-    iframeSrc = `https://oec.world/en/visualize/embed/tree_map/hs92/export/${oecCode}/all/show/2020/?controls=false&title=false&click=false`;
+    iframeSrc = `https://oec.world/en/visualize/embed/tree_map/hs92/export/${oecCode}/all/show/2021/?controls=false&title=false&click=false`;
     oecLink = `https://oec.world/en/profile/country/${country3LetterCode}`;
   }
 
@@ -173,20 +194,22 @@ export function Game({ settingsData }: GameProps) {
           height: 0,
         }}
       >
-        <iframe
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
-          title="Country to guess"
-          width="390"
-          height="315"
-          src={iframeSrc}
-          frameBorder="0"
-        />
+        {country3LetterCode ? (
+          <iframe
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+            title="Country to guess"
+            width="390"
+            height="315"
+            src={iframeSrc}
+            frameBorder="0"
+          />
+        ) : null}
       </div>
       {rotationMode && !hideImageMode && !gameEnded && (
         <button

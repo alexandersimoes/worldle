@@ -2,6 +2,7 @@
 // Countries with long/lat => https://developers.google.com/public-data/docs/canonical/countries_csv
 // Countries images => https://github.com/djaiss/mapsicon
 import { flag } from "country-emoji";
+import i18n from "../i18n";
 
 const countryCodesWithImage = [
   "ad",
@@ -246,6 +247,10 @@ const countryCodesWithImage = [
   "ua",
   "ve",
   "ye",
+  "tv",
+  "mh",
+  "fm",
+  "mp",
 ];
 
 export interface Country {
@@ -327,6 +332,12 @@ export const countries: Country[] = [
   { code: "BH", latitude: 25.930414, longitude: 50.637772, name: "Bahrain" },
   { code: "BI", latitude: -3.373056, longitude: 29.918886, name: "Burundi" },
   { code: "BJ", latitude: 9.30769, longitude: 2.315834, name: "Benin" },
+  {
+    code: "BL",
+    latitude: 17.9139222,
+    longitude: -62.8338521,
+    name: "Saint Barthélemy",
+  },
   { code: "BM", latitude: 32.321384, longitude: -64.75737, name: "Bermuda" },
   { code: "BN", latitude: 4.535277, longitude: 114.727669, name: "Brunei" },
   { code: "BO", latitude: -16.290154, longitude: -63.588653, name: "Bolivia" },
@@ -391,6 +402,12 @@ export const countries: Country[] = [
     latitude: 16.002082,
     longitude: -24.013197,
     name: "Cape Verde",
+  },
+  {
+    code: "CW",
+    latitude: 12.11666,
+    longitude: -68.9333,
+    name: "Curaçao",
   },
   {
     code: "CX",
@@ -461,7 +478,7 @@ export const countries: Country[] = [
   // },
   // { code: "GG", latitude: 49.465691, longitude: -2.585278, name: "Guernsey" },
   { code: "GH", latitude: 7.946527, longitude: -1.023194, name: "Ghana" },
-  // { code: "GI", latitude: 36.137741, longitude: -5.345374, name: "Gibraltar" },
+  { code: "GI", latitude: 36.137741, longitude: -5.345374, name: "Gibraltar" },
   { code: "GL", latitude: 71.706936, longitude: -42.604303, name: "Greenland" },
   { code: "GM", latitude: 13.443182, longitude: -15.310139, name: "Gambia" },
   { code: "GN", latitude: 9.945587, longitude: -9.696645, name: "Guinea" },
@@ -495,12 +512,12 @@ export const countries: Country[] = [
   { code: "GY", latitude: 4.860416, longitude: -58.93018, name: "Guyana" },
   // { code: "GZ", latitude: 31.354676, longitude: 34.308825, name: "Gaza Strip" },
   { code: "HK", latitude: 22.396428, longitude: 114.109497, name: "Hong Kong" },
-  {
-    code: "HM",
-    latitude: -53.08181,
-    longitude: 73.504158,
-    name: "Heard Island and McDonald Islands",
-  },
+  // {
+  //   code: "HM",
+  //   latitude: -53.08181,
+  //   longitude: 73.504158,
+  //   name: "Heard Island and McDonald Islands",
+  // },
   { code: "HN", latitude: 15.199999, longitude: -86.241905, name: "Honduras" },
   { code: "HR", latitude: 45.1, longitude: 15.2, name: "Croatia" },
   { code: "HT", latitude: 18.971187, longitude: -72.285215, name: "Haiti" },
@@ -580,6 +597,12 @@ export const countries: Country[] = [
   // { code: "MC", latitude: 43.750298, longitude: 7.412841, name: "Monaco" },
   { code: "MD", latitude: 47.411631, longitude: 28.369885, name: "Moldova" },
   { code: "ME", latitude: 42.708678, longitude: 19.37439, name: "Montenegro" },
+  {
+    code: "MF",
+    latitude: 18.075,
+    longitude: -63.060001,
+    name: "Saint Maarten",
+  },
   {
     code: "MG",
     latitude: -18.766947,
@@ -775,7 +798,7 @@ export const countries: Country[] = [
     name: "El Salvador",
   },
   { code: "SY", latitude: 34.802075, longitude: 38.996815, name: "Syria" },
-  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Swaziland" },
+  { code: "SZ", latitude: -26.522503, longitude: 31.465866, name: "Eswatini" },
   {
     code: "TC",
     latitude: 21.694025,
@@ -846,12 +869,12 @@ export const countries: Country[] = [
     name: "Saint Vincent and the Grenadines",
   },
   { code: "VE", latitude: 6.42375, longitude: -66.58973, name: "Venezuela" },
-  // {
-  //   code: "VG",
-  //   latitude: 18.420695,
-  //   longitude: -64.639968,
-  //   name: "British Virgin Islands",
-  // },
+  {
+    code: "VG",
+    latitude: 18.420695,
+    longitude: -64.639968,
+    name: "British Virgin Islands",
+  },
   // {
   //   code: "VI",
   //   latitude: 18.335765,
@@ -877,6 +900,12 @@ export const countries: Country[] = [
   },
   { code: "ZM", latitude: -13.133897, longitude: 27.849332, name: "Zambia" },
   { code: "ZW", latitude: -19.015438, longitude: 29.154857, name: "Zimbabwe" },
+  {
+    code: "BQ",
+    latitude: 12.103832918,
+    longitude: -68.283498866,
+    name: "Bonaire",
+  },
 ];
 
 export const fictionalCountries: Country[] = [
@@ -987,16 +1016,18 @@ export const countriesWithImage = countries.filter((c) =>
   countryCodesWithImage.includes(c.code.toLowerCase())
 );
 
-export function getCountryName(language: string, country: Country) {
-  return country.name;
+export function getCountryName(language: string, country: Country | undefined) {
+  return country?.name;
 }
 
-export function sanitizeCountryName(countryName: string): string {
+export function sanitizeCountryName(countryName: string | undefined): string {
   return countryName
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[- '()]/g, "")
-    .toLowerCase();
+    ? countryName
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[- '()]/g, "")
+        .toLowerCase()
+    : "";
 }
 
 export interface Iso {
@@ -1024,6 +1055,7 @@ export const countryISOMapping: Iso = {
   BH: "BHR",
   BD: "BGD",
   BB: "BRB",
+  BQ: "BES",
   BY: "BLR",
   BE: "BEL",
   BZ: "BLZ",
@@ -1045,6 +1077,7 @@ export const countryISOMapping: Iso = {
   CM: "CMR",
   CA: "CAN",
   CV: "CPV",
+  CW: "CUW",
   KY: "CYM",
   CF: "CAF",
   TD: "TCD",
@@ -1266,8 +1299,28 @@ export function getCountryPrettyName(
     if (country) {
       return isAprilFools
         ? `${country.name}`
-        : `${flag(country?.code)} ${country.name}`;
+        : flag(country?.code)
+        ? `${flag(country?.code)} ${country.name}`
+        : `${country.name}`;
     }
   }
   return `${str}`;
+}
+
+export function getCountryByName(countryName: string): Country | undefined {
+  return countries.find(
+    (country) =>
+      sanitizeCountryName(getCountryName(i18n.resolvedLanguage, country)) ===
+      sanitizeCountryName(countryName)
+  );
+}
+
+export function getFictionalCountryByName(
+  countryName: string
+): Country | undefined {
+  return fictionalCountries.find(
+    (country) =>
+      sanitizeCountryName(getCountryName(i18n.resolvedLanguage, country)) ===
+      sanitizeCountryName(countryName)
+  );
 }

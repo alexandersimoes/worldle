@@ -4,7 +4,7 @@ import {
   formatDistance,
   generateSquareCharacters,
 } from "../domain/geography";
-import { Guess } from "../domain/guess";
+import { constructOecLink, Guess } from "../domain/guess";
 import React, { useCallback, useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { SettingsData } from "../hooks/useSettings";
@@ -120,7 +120,12 @@ export function GuessRow({
           </div>
         </>
       );
-    case "ENDED":
+    case "ENDED": {
+      const countrySectionStyle = {
+        display: "flex",
+        justifyContent: "space-between",
+        padding: "16px",
+      };
       return (
         <>
           <div
@@ -129,9 +134,34 @@ export function GuessRow({
                 ? "bg-oec-yellow rounded-lg flex items-center h-8 col-span-3 animate-reveal pl-2"
                 : "bg-gray-200 rounded-lg flex items-center h-8 col-span-3 animate-reveal pl-2"
             }
+            style={countrySectionStyle}
           >
             <p className="text-ellipsis overflow-hidden whitespace-nowrap">
               {getCountryPrettyName(guess?.name, isAprilFools)}
+            </p>
+            <p>
+              {guess?.country !== undefined ? (
+                <a
+                  href={constructOecLink(guess?.country)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              ) : null}
             </p>
           </div>
           <div
@@ -175,5 +205,6 @@ export function GuessRow({
           </div>
         </>
       );
+    }
   }
 }
