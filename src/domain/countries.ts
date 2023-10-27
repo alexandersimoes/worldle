@@ -253,7 +253,7 @@ export interface Country {
   latitude: number;
   longitude: number;
   name: string;
-  hs92Code?: string;
+  oecCode?: string;
 }
 
 export const countries: Country[] = [
@@ -820,7 +820,7 @@ export const countries: Country[] = [
     latitude: 23.69781,
     longitude: 120.960515,
     name: "Taiwan",
-    hs92Code: "XXB",
+    oecCode: "XXB",
   },
   { code: "TZ", latitude: -6.369028, longitude: 34.888822, name: "Tanzania" },
   { code: "UA", latitude: 48.379433, longitude: 31.16558, name: "Ukraine" },
