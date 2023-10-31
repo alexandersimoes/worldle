@@ -1,22 +1,9 @@
+import * as geolib from "geolib";
+import { Country } from "./countries";
+
 const MAX_DISTANCE_ON_EARTH = 20_000_000;
 
-export type Direction =
-  | "S"
-  | "W"
-  | "NNE"
-  | "NE"
-  | "ENE"
-  | "E"
-  | "ESE"
-  | "SE"
-  | "SSE"
-  | "SSW"
-  | "SW"
-  | "WSW"
-  | "WNW"
-  | "NW"
-  | "NNW"
-  | "N";
+export type Direction = "S" | "W" | "NE" | "E" | "SE" | "SW" | "NW" | "N";
 
 export function computeProximityPercent(distance: number): number {
   const proximity = Math.max(MAX_DISTANCE_ON_EARTH - distance, 0);
@@ -39,6 +26,38 @@ export function generateSquareCharacters(
   );
 
   return characters;
+}
+
+export function getCompassDirection(
+  guessedCountry: Country,
+  country: Country
+): Direction {
+  const bearing = geolib.getRhumbLineBearing(guessedCountry, country);
+
+  if (isNaN(bearing)) {
+    throw new Error(
+      "Could not calculate bearing for given points. Check your bearing function"
+    );
+  }
+
+  switch (Math.round(bearing / 45)) {
+    case 1:
+      return "NE";
+    case 2:
+      return "E";
+    case 3:
+      return "SE";
+    case 4:
+      return "S";
+    case 5:
+      return "SW";
+    case 6:
+      return "W";
+    case 7:
+      return "NW";
+    default:
+      return "N";
+  }
 }
 
 export function formatDistance(

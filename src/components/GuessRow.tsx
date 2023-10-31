@@ -12,21 +12,13 @@ import { getCountryPrettyName } from "../domain/countries";
 
 const DIRECTION_ARROWS: Record<Direction, string> = {
   N: "⬆️",
-  NNE: "↗️",
   NE: "↗️",
-  ENE: "↗️",
   E: "➡️",
-  ESE: "↘️",
   SE: "↘️",
-  SSE: "↘️",
   S: "⬇️",
-  SSW: "↙️",
   SW: "↙️",
-  WSW: "↙️",
   W: "⬅️",
-  WNW: "↖️",
   NW: "↖️",
-  NNW: "↖️",
 };
 
 const DIRECTION_ARROWS_APRIL_FOOLS: Record<number, string> = {

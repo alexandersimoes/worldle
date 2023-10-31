@@ -13,6 +13,7 @@ import {
   getFictionalCountryByName,
   getCountryByName,
 } from "../domain/countries";
+import { getCompassDirection } from "../domain/geography";
 import { useGuesses } from "../hooks/useGuesses";
 import { CountryInput } from "./CountryInput";
 import * as geolib from "geolib";
@@ -93,7 +94,7 @@ export function Game({ settingsData }: GameProps) {
       const newGuess = {
         name: currentGuess,
         distance: geolib.getDistance(guessedCountry, country),
-        direction: geolib.getCompassDirection(guessedCountry, country),
+        direction: getCompassDirection(guessedCountry, country),
         country: guessedCountry,
       };
 
