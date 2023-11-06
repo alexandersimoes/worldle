@@ -7,7 +7,11 @@ export type Direction = "S" | "W" | "NE" | "E" | "SE" | "SW" | "NW" | "N";
 
 export function computeProximityPercent(distance: number): number {
   const proximity = Math.max(MAX_DISTANCE_ON_EARTH - distance, 0);
-  return Math.round((proximity / MAX_DISTANCE_ON_EARTH) * 100);
+  const rounded = Math.round((proximity / MAX_DISTANCE_ON_EARTH) * 100);
+  if (distance > 0 && rounded >= 100) {
+    return 99;
+  }
+  return rounded;
 }
 
 export function generateSquareCharacters(
