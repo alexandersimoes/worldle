@@ -41,22 +41,16 @@ export function Settings({
           </label>
         </div>
         <div className="flex p-1">
-          <select
-            id="setting-theme"
-            className="h-8"
-            value={settingsData.theme}
+          <input
+            type="checkbox"
+            id="setting-fuzzyDistance"
+            checked={settingsData.fuzzyDistance}
             onChange={(e) =>
-              updateSettings({ theme: e.target.value as "light" | "dark" })
+              updateSettings({ fuzzyDistance: e.target.checked })
             }
-          >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-          </select>
-          <label
-            className="flex-1 ml-2 flex items-center"
-            htmlFor="setting-theme"
-          >
-            {t("settings.theme")}
+          />
+          <label className="flex-1 ml-2" htmlFor="setting-fuzzyDistance">
+            {t("settings.fuzzyDistance")}
           </label>
         </div>
       </div>

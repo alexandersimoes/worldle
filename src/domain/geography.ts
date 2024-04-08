@@ -74,3 +74,17 @@ export function formatDistance(
     ? `${Math.round(distanceInKm).toLocaleString("en-US")} km`
     : `${Math.round(distanceInKm * 0.621371).toLocaleString("en-US")} mi`;
 }
+
+export function formatFuzzyDistance(distanceInMeters: number): string {
+  const distanceInKm = distanceInMeters / 1000;
+
+  if (distanceInKm > 3000) {
+    return "Cold";
+  } else if (distanceInKm > 2000) {
+    return "Lukewarm";
+  } else if (distanceInKm > 1000) {
+    return "Warm";
+  } else {
+    return "Hot";
+  }
+}

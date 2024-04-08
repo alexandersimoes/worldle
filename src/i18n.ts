@@ -22,6 +22,7 @@ const resources = {
         startingNextDay: "Starting the next day!",
         noImageMode: "Hide country image for more of a challenge.",
         rotationMode: "Randomly rotate country image.",
+        fuzzyDistance: "Show fuzzy distance",
       },
       stats: {
         title: "Statistics",
@@ -54,6 +55,7 @@ const resources = {
         startingNextDay: "A partir du lendemain !",
         noImageMode: "Cache l'image du pays pour plus de challenge.",
         rotationMode: "Tourne l'image du pays de manière aléatoire.",
+        fuzzyDistance: "Afficher la distance floue",
       },
       stats: {
         title: "Statistiques",

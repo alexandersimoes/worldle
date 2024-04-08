@@ -5,6 +5,7 @@ export interface SettingsData {
   rotationMode: boolean;
   distanceUnit: "km" | "miles";
   theme: "light" | "dark";
+  fuzzyDistance: boolean;
 }
 
 const defaultSettingsData: SettingsData = {
@@ -14,6 +15,7 @@ const defaultSettingsData: SettingsData = {
   theme: window.matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light",
+  fuzzyDistance: false,
 };
 
 function loadSettings(): SettingsData {

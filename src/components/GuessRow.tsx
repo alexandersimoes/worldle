@@ -2,6 +2,7 @@ import {
   computeProximityPercent,
   Direction,
   formatDistance,
+  formatFuzzyDistance,
   generateSquareCharacters,
 } from "../domain/geography";
 import { constructOecLink, Guess } from "../domain/guess";
@@ -49,7 +50,7 @@ export function GuessRow({
   countryInputRef,
   isAprilFools = false,
 }: GuessRowProps) {
-  const { distanceUnit, theme } = settingsData;
+  const { distanceUnit, theme, fuzzyDistance } = settingsData;
   const proximity = guess != null ? computeProximityPercent(guess.distance) : 0;
   const squares = generateSquareCharacters(proximity, theme);
 
@@ -103,13 +104,16 @@ export function GuessRow({
               </div>
             ))}
           </div>
-          <div className="border-2 h-8 col-span-1 animate-reveal">
-            <CountUp
-              end={isAprilFools ? 100 : proximity}
-              suffix="%"
-              duration={(SQUARE_ANIMATION_LENGTH * 5) / 1000}
-            />
-          </div>
+
+          {!fuzzyDistance && (
+            <div className="border-2 h-8 col-span-1 animate-reveal">
+              <CountUp
+                end={isAprilFools ? 100 : proximity}
+                suffix="%"
+                duration={(SQUARE_ANIMATION_LENGTH * 5) / 1000}
+              />
+            </div>
+          )}
         </>
       );
     case "ENDED": {
@@ -122,9 +126,9 @@ export function GuessRow({
         <>
           <div
             className={
-              guess?.distance === 0
-                ? "bg-oec-yellow rounded-lg flex items-center h-8 col-span-3 animate-reveal pl-2"
-                : "bg-gray-200 rounded-lg flex items-center h-8 col-span-3 animate-reveal pl-2"
+              "rounded-lg flex items-center h-8 animate-reveal pl-2" +
+              (guess?.distance === 0 ? " bg-oec-yellow" : " bg-gray-200") +
+              (fuzzyDistance ? " col-span-4" : " col-span-3")
             }
             style={countrySectionStyle}
           >
@@ -165,6 +169,8 @@ export function GuessRow({
           >
             {guess && isAprilFools
               ? "⁇"
+              : guess && fuzzyDistance
+              ? formatFuzzyDistance(guess.distance)
               : guess
               ? formatDistance(guess.distance, distanceUnit)
               : null}
@@ -184,17 +190,19 @@ export function GuessRow({
               ? DIRECTION_ARROWS[guess.direction]
               : null}
           </div>
-          <div
-            className={
-              guess?.distance === 0
-                ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
-                : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
-            }
-          >
-            {isAprilFools
-              ? DIRECTION_ARROWS_APRIL_FOOLS[index]
-              : `${proximity}%`}
-          </div>
+          {!fuzzyDistance && (
+            <div
+              className={
+                guess?.distance === 0
+                  ? "bg-oec-yellow rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
+                  : "bg-gray-200 rounded-lg flex items-center justify-center h-8 col-span-1 animate-reveal animate-pop"
+              }
+            >
+              {isAprilFools
+                ? DIRECTION_ARROWS_APRIL_FOOLS[index]
+                : `${proximity}%`}
+            </div>
+          )}
         </>
       );
     }
